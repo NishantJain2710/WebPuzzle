@@ -22,7 +22,7 @@ app.use('/api/users',userRoutes)
 
 
 if(process.env.NODE_ENV==='production'){
-    app.use(express.static('frontend/build'))
+    app.use(express.static('/frontend/build'))
 }else{
     app.get('/', (req,res) => {
         res.send('api is running');
