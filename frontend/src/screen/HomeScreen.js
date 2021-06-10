@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch } from 'react-redux'
-import {iIncrementMethod} from '../actions/constantActions.js'
+import {iUpdateMethod} from '../actions/constantActions.js'
 import Header from '../component/Header.js'
 // import {requestAttempt} from '../actions/userActions'
 
@@ -24,7 +24,7 @@ const HomeScreen = ({history}) => {
     const quizWindow = (e) =>{
         e.preventDefault();
         // dispatch(requestAttempt(userInfo._id))
-        dispatch(iIncrementMethod(1))
+        dispatch(iUpdateMethod(1))
        window.open(
            "http://localhost:3000/Quiz",
            "Quiz",

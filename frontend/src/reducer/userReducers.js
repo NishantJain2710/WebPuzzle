@@ -15,7 +15,16 @@ import{
     USER_LOGOUT,
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
-    USER_REGISTER_SUCCESS
+    USER_REGISTER_SUCCESS,
+    ANSWER_SHEET_REQUEST,
+    ANSWER_SHEET_SUCCESS,
+    ANSWER_SHEET_FAIL,
+    SHOW_TIME_REQUEST,
+    SHOW_TIME_SUCCESS,
+    SHOW_TIME_FAIL,
+    UPDATE_TIME_REQUEST,
+    UPDATE_TIME_SUCCESS,
+    UPDATE_TIME_FAIL
 }from '../constants/userConstants.js'
 
 export const userLoginReducer = (state = {}, action)=>{
@@ -84,6 +93,46 @@ export const userAttemptReducer = (state = {}, action)=>{
         case USER_ATTEMPT_SUCCESS: 
             return{ loading: false, success: true, userInfo:action.payload}
         case USER_ATTEMPT_FAIL : 
+            return{ loading: false, error: action.payload }
+        default: 
+        return state
+    }
+}
+
+
+export const answerSheetReducer = (state = {}, action)=>{
+    switch(action.type){
+        case ANSWER_SHEET_REQUEST :
+            return {loading : true}
+        case ANSWER_SHEET_SUCCESS: 
+            return{ loading: false, submittedQuestion: action.payload}
+        case ANSWER_SHEET_FAIL : 
+            return{ loading: false, error: action.payload }
+        default: 
+        return state
+    }
+}
+
+export const showTimeReducer = (state = {}, action)=>{
+    switch(action.type){
+        case SHOW_TIME_REQUEST :
+            return {loading : true}
+        case SHOW_TIME_SUCCESS: 
+            return{ loading: false, Time: action.payload}
+        case SHOW_TIME_FAIL : 
+            return{ loading: false, error: action.payload }
+        default: 
+        return state
+    }
+}
+
+export const updateTimeReducer = (state = {}, action)=>{
+    switch(action.type){
+        case UPDATE_TIME_REQUEST :
+            return {loading : true}
+        case UPDATE_TIME_SUCCESS: 
+            return{ loading: false, Time: action.payload}
+        case UPDATE_TIME_FAIL : 
             return{ loading: false, error: action.payload }
         default: 
         return state

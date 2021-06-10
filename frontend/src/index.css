@@ -473,3 +473,44 @@ font-weight: 510;
        
   }
   
+  .footer{
+      height: 50px;
+      width: 100%;
+  }
+
+
+  .questionBtnContainer{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+  }
+  .questionBtn{
+      width: 48%;
+      margin: 20px 0;
+      height: 40px;
+      border-radius: 10px;
+      border: 0;
+      background-color: #579137;
+      cursor: pointer;
+  }
+
+  .questionBtn:hover{
+      background-color: #76b852;
+  }
+
+  .finish{
+    background-color: #dd1425;
+  }
+
+  .finish:hover{
+    background-color: #d43845;
+  }
+
+.countDown{
+    width: 100%;
+    height: 60px;
+    font-size: 21px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}

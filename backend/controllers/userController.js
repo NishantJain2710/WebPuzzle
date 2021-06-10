@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+import AnswerSheet from '../models/answerSheetModel.js';
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateTokens.js'
 
@@ -99,11 +100,59 @@ const checkForAttempt = asyncHandler(async(req,res)=>{
     }
 })
 
+const createAnswerSheet = asyncHandler(async(req,res)=>{
+    try{
+        const {question, answer} = req.body
+
+        const user = await User.findById(req.params.id)
+        if(user){
+            const questionDoneAlready = await AnswerSheet.find({user:user.id, question:question})
+            if(questionDoneAlready.length === 0){
+                const createAnswer = await AnswerSheet.create({
+                    question:question,
+                    answer:answer,
+                    user:user.id
+                })
+                if(createAnswer){
+                    res.status(201).json({
+                        question: createAnswer.question,
+                        answer: createAnswer.answer
+                    })
+                }else{
+                    res.status(400)
+                    throw new Error('Invalid User Data')
+                }
+            }else{
+                if(questionDoneAlready[0].answer.toUpperCase() === answer.toUpperCase()){
+                    questionDoneAlready[0].answer
+                }else{
+                    questionDoneAlready[0].answer = answer
+                }
+                const updatedAnswer = await questionDoneAlready[0].save()
+
+                res.json({
+                    question: updatedAnswer.question,
+                    answer: updatedAnswer.answer
+                })
+            }
+            
+        }else{
+            res.status(404)
+            throw new Error('User not Found')
+        }
+    }catch(error){
+        res.status(400)
+        throw new Error('Answer is empty')
+    }  
+})
+
+
 
 export{
     registerUser,
     loginUser,
     showParticipants,
     deleteParticipant,
-    checkForAttempt
+    checkForAttempt,
+    createAnswerSheet
 }

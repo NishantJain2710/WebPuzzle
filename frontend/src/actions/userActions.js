@@ -16,7 +16,17 @@ import {
     USER_LIST_SUCCESS,
     USER_ATTEMPT_REQUEST,
     USER_ATTEMPT_SUCCESS,
-    USER_ATTEMPT_FAIL
+    USER_ATTEMPT_FAIL,
+    ANSWER_SHEET_REQUEST,
+    ANSWER_SHEET_SUCCESS,
+    ANSWER_SHEET_FAIL,
+    SHOW_TIME_REQUEST,
+    SHOW_TIME_SUCCESS,
+    SHOW_TIME_FAIL,
+    UPDATE_TIME_REQUEST,
+    UPDATE_TIME_SUCCESS,
+    UPDATE_TIME_FAIL,
+    
 }from '../constants/userConstants.js'
 
 export const login = (enrollmentNo,password)=> async(dispatch) =>{
@@ -158,6 +168,89 @@ export const requestAttempt = (id) => async(dispatch,getState) =>{
     }catch(error){
         dispatch({
             type: USER_ATTEMPT_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+
+export const answerSheet = (question,answer, userId)=> async(dispatch,getState) =>{
+    try {
+        dispatch({
+            type: ANSWER_SHEET_REQUEST
+        })
+
+        const {userLogin : {userInfo}} = getState()
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const {data} = await axios.post(`/api/users/answersheet/${userId}`,{question, answer}, config)
+
+        dispatch({
+            type: ANSWER_SHEET_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: ANSWER_SHEET_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+
+export const showtime = ()=> async(dispatch) =>{
+    try {
+        dispatch({
+            type: SHOW_TIME_REQUEST
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const {data} = await axios.get('/api/coordinator/time', config)
+
+        dispatch({
+            type: SHOW_TIME_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: SHOW_TIME_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+export const updateTime = (hour,min,sec)=> async(dispatch,getState) =>{
+    try {
+        dispatch({
+            type: UPDATE_TIME_REQUEST
+        })
+        const {userLogin : {userInfo}} = getState()
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const {data} = await axios.put('/api/coordinator/time',{hour,min,sec}, config)
+
+        dispatch({
+            type: UPDATE_TIME_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: UPDATE_TIME_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }

@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Questions from '../models/questionModel.js';
+import Timer from '../models/timerModel.js';
 
 
 const addQuestion = asyncHandler(async(req,res)=>{
@@ -89,6 +90,45 @@ const showQuestionsOnly  = asyncHandler(async(req,res)=>{
     res.status(200).json({questions})
 })
 
+const updateTime = asyncHandler(async(req,res)=>{
+    const { hour, min , sec } = req.body
+
+    const time =  await Timer.findById({_id:"60c20bd1facf65330ce18c6c"})
+    
+    if(time){
+        time.hour = hour
+        time.min = min
+        time.sec = sec
+
+        if(time.hour === '' || time.min==='' || time.sec===''){
+            res.status(400)
+            throw new Error('Some Field is empty')
+        }else{
+            const updatedTime = await time.save()
+            res.status(201).json({
+                hour:updatedTime.hour,
+                min:updatedTime.min,
+                sec:updatedTime.sec,
+            })            
+       }
+
+
+    }
+})
+
+const showTime = asyncHandler(async(req,res)=>{
+    const time =  await Timer.findById({_id:"60c20bd1facf65330ce18c6c"})
+    if(time){
+        res.status(200).json({
+            hour: time.hour,
+            min:time.min,
+            sec:time.sec
+        })
+    }else{
+        res.status(400)
+        throw new Error('Time not exist')
+    }
+})
 
 export{
     addQuestion,
@@ -97,4 +137,6 @@ export{
     editQuestion,
     getQuestionById,
     showQuestionsOnly,
+    updateTime,
+    showTime
 }

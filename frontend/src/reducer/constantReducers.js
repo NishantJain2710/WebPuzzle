@@ -1,8 +1,8 @@
-import {CONSTANT_I_INCREMENT, CONSTANT_REMOVE} from '../constants/constantConstants'
+import {CONSTANT_I_UPDATE, CONSTANT_REMOVE} from '../constants/constantConstants'
 
 export const constantReducer = (state = {i : 0},action) =>{
     switch(action.type){
-        case CONSTANT_I_INCREMENT:
+        case CONSTANT_I_UPDATE:
             return{
                 ...state,
                 i: action.payload

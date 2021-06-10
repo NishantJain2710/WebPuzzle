@@ -2,7 +2,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { questionListReducer,questionCreateReducer,onlyQuestionListReducer,answerByQuestionReducer, questionDeleteReducer,questionUpdateReducer,questionDetailsReducer } from './reducer/questionReducers'
-import {userLoginReducer,userRegisterReducer,userAttemptReducer} from './reducer/userReducers'
+import {userLoginReducer,userRegisterReducer,userAttemptReducer,answerSheetReducer,showTimeReducer,updateTimeReducer} from './reducer/userReducers'
 import{constantReducer} from './reducer/constantReducers'
 const reducer = combineReducers({
         questionList: questionListReducer,
@@ -16,6 +16,9 @@ const reducer = combineReducers({
         answerByQuestion:answerByQuestionReducer,
         constant:constantReducer,
         userAttempt:userAttemptReducer,
+        answerSheet: answerSheetReducer,
+        updateTime:updateTimeReducer,
+        showTime:showTimeReducer,
     })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null

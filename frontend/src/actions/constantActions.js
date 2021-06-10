@@ -1,8 +1,8 @@
-import {CONSTANT_I_INCREMENT , CONSTANT_REMOVE} from '../constants/constantConstants'
+import {CONSTANT_I_UPDATE , CONSTANT_REMOVE} from '../constants/constantConstants'
 
-export const iIncrementMethod = (data) => (dispatch)=>{
+export const iUpdateMethod = (data) => (dispatch)=>{
     dispatch({
-        type:CONSTANT_I_INCREMENT,
+        type:CONSTANT_I_UPDATE,
         payload: data
     })
     localStorage.setItem('i',data)

@@ -7,14 +7,16 @@ import LoginScreen from './screen/LoginScreen'
 import RegisterScreen from './screen/RegisterScreen'
 import EditQuestionScreen from './screen/EditQuestionScreen'
 import QuizScreen from './screen/QuizScreen'
+import Footer from './component/Footer';
 const App = () => {
-    const disableFunction = (e) => {
-      e.preventDefault()  
-      return false
-  }
+  //   const disableFunction = (e) => {
+  //     e.preventDefault()  
+  //     return true
+  // }
+  // onContextMenu = {disableFunction}
   return (
     <Router>
-      <div className='site' onContextMenu = {disableFunction} >
+      <div className='site'  >
           <main>
             <Route path='/' component={HomeScreen}  exact />
             <Route path='/addQuestions' component={AddQuestionScreen} />
@@ -24,6 +26,7 @@ const App = () => {
             <Route path='/editQuestions/:id' component={EditQuestionScreen} />
             <Route path='/quiz' component={QuizScreen} />
           </main>
+          <Footer/>
       </div>
     </Router>
     

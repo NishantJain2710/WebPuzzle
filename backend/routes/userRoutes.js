@@ -5,6 +5,7 @@ import{
     deleteParticipant,
     loginUser,
     checkForAttempt,
+    createAnswerSheet
 }from '../controllers/userController.js'
 
 import {protect, organizer} from '../middleware/authMiddleware.js'
@@ -21,5 +22,6 @@ router.get('/showParticipants',protect, organizer  ,showParticipants)
 router.delete('/deleteParticipant/:id',protect, organizer ,deleteParticipant)
 router.get('/attemptcheck/:id',protect,checkForAttempt)
 router.post('/login',loginUser)
+router.post('/answersheet/:id',protect,createAnswerSheet)
 
 export default router;
