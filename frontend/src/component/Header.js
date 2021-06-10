@@ -46,6 +46,7 @@ const Header = () => {
                                 <Link to='/addQuestions' >Add Question</Link>
                                 <Link to='/showQuestions' >Show Questions</Link>
                                 <Link to='/Register' >Add User</Link>
+                                <Link to='/timer' >Increase Time</Link>
                             </div>}
                             <button onClick={logoutHandler}>Logout</button>
                         </div>

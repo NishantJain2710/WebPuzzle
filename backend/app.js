@@ -5,7 +5,7 @@ import {notFound, errorHandler} from './middleware/errorMiddleware.js'
 import coordinatorRoutes from './routes/coordinatorRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import morgan from 'morgan'
-
+import path from 'path'
 const app = express()
 dotenv.config()
 
@@ -22,7 +22,10 @@ app.use('/api/users',userRoutes)
 
 
 if(process.env.NODE_ENV==='production'){
-    app.use(express.static('/frontend/build'))
+    app.use(express.static('frontend/build'))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'frontend', 'build','index.html'));
+    })
 }else{
     app.get('/', (req,res) => {
         res.send('api is running');

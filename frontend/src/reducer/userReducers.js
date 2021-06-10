@@ -131,7 +131,7 @@ export const updateTimeReducer = (state = {}, action)=>{
         case UPDATE_TIME_REQUEST :
             return {loading : true}
         case UPDATE_TIME_SUCCESS: 
-            return{ loading: false, Time: action.payload}
+            return{ loading: false,success:true, Time: action.payload}
         case UPDATE_TIME_FAIL : 
             return{ loading: false, error: action.payload }
         default: 

@@ -229,7 +229,7 @@ export const showtime = ()=> async(dispatch) =>{
     }
 }
 
-export const updateTime = (hour,min,sec)=> async(dispatch,getState) =>{
+export const updatetime = (hour,min,sec)=> async(dispatch,getState) =>{
     try {
         dispatch({
             type: UPDATE_TIME_REQUEST
